@@ -1,5 +1,6 @@
 package com.sena.barMJC.modules.auth.service.interfaces;
 
+import com.sena.barMJC.modules.auth.dto.request.ChangePasswordDTO;
 import com.sena.barMJC.modules.auth.dto.request.LoginRequestDTO;
 import com.sena.barMJC.modules.auth.dto.request.RegisterRequestDTO;
 import com.sena.barMJC.modules.auth.dto.response.UserResponseDTO;
@@ -12,8 +13,7 @@ public interface AuthService {
 
     void changePassword(
             Long userId,
-            String currentPassword,
-            String newPassword
+            ChangePasswordDTO dto
     );
 
     void deactivateUser(Long userId);

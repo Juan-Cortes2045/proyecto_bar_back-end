@@ -11,20 +11,20 @@ import com.sena.barMJC.modules.auth.entity.User;
 public interface UserRepository
         extends JpaRepository<User, Long> {
 
+  
     Optional<User> findByUsername(String username);
 
     Optional<User> findByEmail(String email);
 
-    Optional<User> findByUsernameAndStatusTrue(
-            String username
-    );
+    Optional<User> findByUsernameAndStatusTrue(String username);
 
-    Optional<User> findByEmailAndStatusTrue(
-            String email
-    );
+    Optional<User> findByEmailAndStatusTrue(String email);
 
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
 
+    boolean existsByUsernameAndStatusTrue(String username);
+
+    boolean existsByEmailAndStatusTrue(String email);
 }
