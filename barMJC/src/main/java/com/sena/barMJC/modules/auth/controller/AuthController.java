@@ -1,22 +1,25 @@
 package com.sena.barMJC.modules.auth.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.sena.barMJC.modules.auth.dto.request.ChangePasswordDTO;
 import com.sena.barMJC.modules.auth.dto.request.LoginRequestDTO;
 import com.sena.barMJC.modules.auth.dto.request.RegisterRequestDTO;
 import com.sena.barMJC.modules.auth.dto.response.UserResponseDTO;
 import com.sena.barMJC.modules.auth.service.interfaces.AuthService;
 
-import jakarta.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.*;
-
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -24,44 +27,39 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> register(
-            @Valid @RequestBody RegisterRequestDTO dto
+            @RequestBody RegisterRequestDTO dto
     ) {
-
-        UserResponseDTO response =
-                authService.register(dto);
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(response);
+                .body(authService.register(dto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserResponseDTO> login(
-            @Valid @RequestBody LoginRequestDTO dto
+            @RequestBody LoginRequestDTO dto
     ) {
-
-        return ResponseEntity.ok(
-                authService.login(dto)
-        );
+        return ResponseEntity.ok(authService.login(dto));
     }
 
-    @PutMapping("/users/{id}/change-password")
+    @PutMapping("/{userId}/password")
     public ResponseEntity<Void> changePassword(
-            @PathVariable Long id,
-            @Valid @RequestBody ChangePasswordDTO dto
+            @PathVariable Long userId,
+            @RequestBody ChangePasswordDTO dto
     ) {
-
-        authService.changePassword(id, dto);
+        authService.changePassword(
+                userId,
+                dto.getCurrentPassword(),
+                dto.getNewPassword()
+        );
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/users/{id}")
+    @PatchMapping("/{userId}/deactivate")
     public ResponseEntity<Void> deactivateUser(
-            @PathVariable Long id
+            @PathVariable Long userId
     ) {
-
-        authService.deactivateUser(id);
+        authService.deactivateUser(userId);
 
         return ResponseEntity.noContent().build();
     }

@@ -10,3 +10,9 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/changes/004-products-schema.yaml
+
+  - include:
+      file: db/changelog/changes/005-auth-alter-user-password-length.yaml
+
+  - include:
+      file: db/changelog/changes/006-auth-seed-admin-user.yaml
