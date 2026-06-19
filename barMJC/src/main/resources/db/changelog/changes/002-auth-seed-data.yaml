@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-seed-roles
+      author: sena
+      changes:
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: ADMIN
+              - column:
+                  name: description
+                  value: Administrador del sistema
+              - column:
+                  name: status
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: GETDATE()
+              - column:
+                  name: updated_at
+                  valueComputed: GETDATE()
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: USER
+              - column:
+                  name: description
+                  value: Usuario estandar
+              - column:
+                  name: status
+                  valueBoolean: true
+              - column:
+                  name: created_at
+                  valueComputed: GETDATE()
+              - column:
+                  name: updated_at
+                  valueComputed: GETDATE()

@@ -1,0 +1,99 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-role
+      author: sena
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id_role
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: status
+                  type: BIT
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: DATETIME2
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: DATETIME2
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 002-create-user-account
+      author: sena
+      changes:
+        - createTable:
+            tableName: user_account
+            columns:
+              - column:
+                  name: id_user
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(12)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id_role
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: BIT
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: DATETIME2
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: DATETIME2
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: user_account
+            baseColumnNames: id_role
+            referencedTableName: role
+            referencedColumnNames: id_role
+            constraintName: fk_user_account_role
