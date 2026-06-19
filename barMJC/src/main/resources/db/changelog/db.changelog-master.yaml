@@ -7,3 +7,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/changes/003-test-table.yaml
+
+  - include:
+      file: db/changelog/changes/004-products-schema.yaml
