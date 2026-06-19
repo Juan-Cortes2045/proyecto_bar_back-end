@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-seed-admin-user
+      author: sena
+      comment: Usuario administrador inicial (password Admin123*)
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM user_account WHERE username = 'admin'
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO user_account (username, email, password, id_role, status, created_at, updated_at)
+              SELECT
+                'admin',
+                'admin@barmjc.com',
+                '$2b$10$YxzlPYAhKP5otKw7vIyIMen9hhlEl2lMllFltHsBOfccL4hRndDkG',
+                r.id_role,
+                1,
+                GETDATE(),
+                GETDATE()
+              FROM role r
+              WHERE r.name = 'ADMIN'
