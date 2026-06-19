@@ -22,8 +22,4 @@ public class RegisterRequestDTO {
 
     @NotNull
     private Long roleId;
-
-    @NotNull
-    private Long workerId;
-
 }

@@ -15,8 +15,6 @@ public class UserResponseDTO {
 
     private String role;
 
-    private String workerName;
-
     private Boolean status;
 
 }
